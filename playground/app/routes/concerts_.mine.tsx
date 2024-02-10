@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
 export function Component() {
-    return <h1>mine is out of concerts layout</h1>
+  return <h1>mine is out of concerts layout</h1>
 }

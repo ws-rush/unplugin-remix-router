@@ -1,13 +1,13 @@
-import React from "react"
+import React from 'react'
 
-export const loader = async () => {
-    console.log('hello')
+export async function loader() {
+  return 'loader'
 }
 
-export const action = async () => {
-    console.log('hello world')
+export async function action() {
+  return 'action'
 }
 
 export function Component() {
-    return <h1>Dynamic</h1>
+  return <h1>Dynamic</h1>
 }

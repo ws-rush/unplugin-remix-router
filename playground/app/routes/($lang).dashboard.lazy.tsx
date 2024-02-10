@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export function Component() {
   return <h1>dashboard</h1>
