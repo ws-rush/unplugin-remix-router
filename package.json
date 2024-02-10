@@ -17,8 +17,8 @@
     "remix-router",
     "unplugin",
     "vite",
-    "webpack",
     "rollup",
+    "webpack",
     "transform"
   ],
   "exports": {
@@ -32,25 +32,25 @@
       "import": "./dist/rspack.js",
       "require": "./dist/rspack.cjs"
     },
+    "./esbuild": {
+      "types": "./dist/esbuild.d.ts",
+      "import": "./dist/esbuild.js",
+      "require": "./dist/esbuild.cjs"
+    },
     "./vite": {
       "types": "./dist/vite.d.ts",
       "import": "./dist/vite.js",
       "require": "./dist/vite.cjs"
-    },
-    "./webpack": {
-      "types": "./dist/webpack.d.ts",
-      "import": "./dist/webpack.js",
-      "require": "./dist/webpack.cjs"
     },
     "./rollup": {
       "types": "./dist/rollup.d.ts",
       "import": "./dist/rollup.js",
       "require": "./dist/rollup.cjs"
     },
-    "./esbuild": {
-      "types": "./dist/esbuild.d.ts",
-      "import": "./dist/esbuild.js",
-      "require": "./dist/esbuild.cjs"
+    "./webpack": {
+      "types": "./dist/webpack.d.ts",
+      "import": "./dist/webpack.js",
+      "require": "./dist/webpack.cjs"
     },
     "./types": {
       "types": "./dist/types.d.ts",
@@ -93,7 +93,13 @@
     "webpack": "^4 || ^5"
   },
   "peerDependenciesMeta": {
-    "webpack": {
+    "@nuxt/kit": {
+      "optional": true
+    },
+    "@nuxt/schema": {
+      "optional": true
+    },
+    "esbuild": {
       "optional": true
     },
     "rollup": {
@@ -102,13 +108,7 @@
     "vite": {
       "optional": true
     },
-    "esbuild": {
-      "optional": true
-    },
-    "@nuxt/kit": {
-      "optional": true
-    },
-    "@nuxt/schema": {
+    "webpack": {
       "optional": true
     }
   },
