@@ -113,13 +113,13 @@ export function buildRoutesMap(strings: string[], appDirectory: string, level = 
     )
 
     if (lazyPage) {
-      const absolutePath = path.resolve(appDirectory, `routes/${lazyPage}`)
+      const absolutePath = `${appDirectory}/routes/${lazyPage}`
       newNode.lazy = `ImportStart'${absolutePath}'ImportEnd`
     }
 
     if (page) {
       const random = Math.floor(Math.random() * 100000 + 1)
-      const absolutePath = path.resolve(appDirectory, `routes/${page}`)
+      const absolutePath = `${appDirectory}/routes/${page}`
       intenalImports += `import * as route${random} from '${absolutePath}'\n`
       newNode.spread = `SpreadStartroute${random}SpreadEnd`
     }
