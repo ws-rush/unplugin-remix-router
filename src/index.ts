@@ -162,7 +162,7 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
         const absolutePath = `${appDirectory}/root.lazy.tsx`
         routesMap = [{
           path: '/',
-          lazy: `ImportStart${absolutePath}ImportEnd`,
+          lazy: `ImportStart'${absolutePath}'ImportEnd`,
           children: routesMap,
         }]
       }
