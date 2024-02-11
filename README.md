@@ -1,5 +1,7 @@
 # unplugin-remix-router
 
+`unplugin-remix-router` generates a `react-router` file that depends on [remix v2](https://remix.run/docs/en/main/file-conventions/routes) file router convention, see [reactive](https://github.com/ws-rush/reactive) template
+
 ## Install
 
 ```bash
@@ -69,3 +71,66 @@ build({
 ```
 
 <br></details>
+
+## Usage
+
+### Init
+
+```js
+import { routes } from 'virtual:routes'
+
+const router = createBrowserRouter(routes)
+createRoot(document.getElementById('app')!).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+)
+```
+
+### Route Content
+
+every route can export one of following, see [react-router](https://reactrouter.com/en/main) for more:
+
+```js
+export const id = 'main-page'
+
+export async function loader() {}
+
+export async function action() {}
+
+export function Component() {
+  return <h1>Hello Remix Router!</h1>
+}
+
+export function ErrorBoundry() {
+  return <h1>Sorry for this error</h1>
+}
+
+export const handler = {
+  attachedData: {
+    key: 'value'
+  }
+}
+```
+
+### Lazy Routes
+
+we can make lazy routes by adding `.lazy` to route file.
+
+```sh
+- app/
+  - routes/
+    - _index.tsx
+    - about.lazy.tsx # lazy route
+  - root.tsx
+```
+
+## Typescript
+
+add following to `vite-env.d.ts`
+
+```ts
+declare module 'virtual:routes' {
+  export const routes: any // Adjust the type accordingly based on your routes structure
+}
+```
