@@ -74,9 +74,26 @@ build({
 
 ## Usage
 
+### Project Structure
+
+we can make lazy routes by adding `.lazy` to route file.
+
+```sh
+- app/
+  - routes/
+    - _index.tsx
+    - about.lazy.tsx # lazy route
+    - countries.tsx # layout
+    - countries.yemen/route.tsx
+    - countries.wusab/route.lazy.tsx # also lazy route
+  - root.tsx # layout, every layout should use <Outlet >
+  - main.tsx # init route, see #Init
+```
+
 ### Init
 
 ```js
+// main.tsx
 import { routes } from 'virtual:routes'
 
 const router = createBrowserRouter(routes)
@@ -103,7 +120,7 @@ export function Component() {
 }
 
 export function ErrorBoundry() {
-  return <h1>Sorry for this error</h1>
+  return <h1>Something went wrong</h1>
 }
 
 export const handler = {
@@ -111,18 +128,6 @@ export const handler = {
     key: 'value'
   }
 }
-```
-
-### Lazy Routes
-
-we can make lazy routes by adding `.lazy` to route file.
-
-```sh
-- app/
-  - routes/
-    - _index.tsx
-    - about.lazy.tsx # lazy route
-  - root.tsx
 ```
 
 ## Typescript
