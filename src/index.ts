@@ -1,9 +1,26 @@
 import type { UnpluginFactory } from 'unplugin'
 import { createUnplugin } from 'unplugin'
+import type { ViteDevServer } from 'vite'
 import type { Options } from './types'
 import { isFileExist } from './utils/is-file-exist'
 import { listFiles } from './utils/list-files'
 import { buildRoutesMap } from './utils/build-route-maps'
+
+let server: ViteDevServer
+
+export function invalidateVirtualModule(server: ViteDevServer): void {
+  const { moduleGraph, ws } = server
+  const module = moduleGraph.getModuleById('virtual:routes')
+  if (module) {
+    moduleGraph.invalidateModule(module)
+    if (ws) {
+      ws.send({
+        type: 'full-reload',
+        path: '*',
+      })
+    }
+  }
+}
 
 export const unpluginFactory: UnpluginFactory<Options | undefined> = options => ({
   name: 'unplugin-remix-router',
@@ -46,6 +63,16 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
       const routesCode = `${imports}\nexport const routes = ${routesObject}`
       return routesCode
     }
+  },
+  vite: {
+    configureServer(_server) {
+      server = _server
+    },
+    watchChange(id, change) {
+      if (change.event === 'update')
+        return
+      invalidateVirtualModule(server)
+    },
   },
 })
 
