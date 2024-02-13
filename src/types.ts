@@ -2,10 +2,10 @@ export interface Options {
   appDirectory: string
 }
 
-export interface Node {
+export interface Route {
   index?: boolean
   path?: string
   lazy?: string
   spread?: string
-  children?: Node[]
+  children?: Route[]
 }
