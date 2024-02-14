@@ -2,10 +2,14 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { normalizePath } from 'vite'
 
-async function getFiles(directory: string, pattern: RegExp) {
+export async function listFiles(directory: string) {
+  // Define the patterns for matching files
+  const topLevelPattern = /\.tsx$/
+  const subdirectoryPattern = /^route(\.lazy)?\.tsx$/
+
   try {
     const files = await fs.readdir(directory)
-    let matchingFiles: string[] = []
+    const matchingFiles: string[] = []
 
     for (const file of files) {
       const filePath = path.join(directory, file)
@@ -14,15 +18,16 @@ async function getFiles(directory: string, pattern: RegExp) {
       if (stat.isDirectory()) {
         // If it's a directory, get the files in that directory
         const subdirectoryFiles = await fs.readdir(filePath)
-        const matchingSubdirectoryFiles = subdirectoryFiles
-          .filter(subItem => pattern.test(subItem))
-          .map(subItem => path.join(filePath, subItem))
+        const subdirectoryFile = subdirectoryFiles.find(subItem => subdirectoryPattern.test(subItem))
 
-        matchingFiles = matchingFiles.concat(matchingSubdirectoryFiles)
+        if (!subdirectoryFile)
+          continue
+        const subFilePath = path.join(filePath, subdirectoryFile)
+        matchingFiles.push(normalizePath(subFilePath).replace(normalizePath(`${directory}/`), ''))
       }
-      else if (pattern.test(file)) {
+      else if (topLevelPattern.test(file)) {
         // If it's a file and matches the pattern, add it to the result
-        matchingFiles.push(filePath)
+        matchingFiles.push(normalizePath(filePath).replace(normalizePath(`${directory}/`), ''))
       }
     }
 
@@ -32,25 +37,4 @@ async function getFiles(directory: string, pattern: RegExp) {
     console.error('Error:', error)
     throw error
   }
-}
-
-export async function listFiles(baseDirectory: string) {
-  // Define the patterns for matching files
-  const topLevelPattern = /\.tsx$/
-  const subdirectoryPattern = /^route\.tsx$/
-
-  const result = []
-
-  try {
-    const topLevelFiles = await getFiles(baseDirectory, topLevelPattern)
-    const subdirectoryFiles = await getFiles(baseDirectory, subdirectoryPattern)
-
-    result.push(...topLevelFiles)
-    result.push(...subdirectoryFiles)
-  }
-  catch (error) {
-    console.error('Error:', error)
-  }
-
-  return result.map(item => normalizePath(item).replace(normalizePath(`${baseDirectory}/`), ''))
 }
