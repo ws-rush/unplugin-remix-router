@@ -1,7 +1,6 @@
-// test/index.test.ts
-import { describe, expect, it } from 'vitest'
 import path from 'node:path'
-import { listFiles } from '../src/utils/list-files';
+import { describe, expect, it } from 'vitest'
+import { listFiles } from '../src/utils/list-files'
 
 describe('listFiles', () => {
   it('should return an empty array for an empty directory', async () => {

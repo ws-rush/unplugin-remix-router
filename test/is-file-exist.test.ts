@@ -1,7 +1,6 @@
-// test/index.test.ts
+import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { isFileExist } from '../src/utils/is-file-exist'
-import path from 'node:path'
 
 describe('isFileExist', () => {
   it('should return true for an existing file', async () => {
