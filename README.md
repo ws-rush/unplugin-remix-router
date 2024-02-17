@@ -4,6 +4,8 @@
 
 `unplugin-remix-router` generates a `react-router` file that depends on [remix v2](https://remix.run/docs/en/main/file-conventions/routes) file router convention, see [reactive](https://github.com/ws-rush/reactive) template
 
+>For more information, please refer to the React Router [documentation](https://reactrouter.com/en/main). Note that it follows the Remix file convention.
+
 ## Install
 
 ```bash
@@ -108,21 +110,28 @@ createRoot(document.getElementById('app')!).render(
 
 ### Route Content
 
-every route can export one of following, see [react-router](https://reactrouter.com/en/main) for more:
+every route can export one of following, see [React Router](https://reactrouter.com/en/main) for more:
 
 ```js
+export const caseSensitive = false
+
 export const id = 'main-page'
 
 export async function loader() {}
 
 export async function action() {}
 
+// every component should exported without default with name `Component`
 export function Component() {
   return <h1>Hello Remix Router!</h1>
 }
 
 export function ErrorBoundry() {
   return <h1>Something went wrong</h1>
+}
+
+export function shouldRevalidate({ currentUrl }) {
+  return currentUrl.pathname === '/meal-plans/new'
 }
 
 export const handler = {
