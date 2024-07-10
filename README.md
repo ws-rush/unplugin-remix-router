@@ -17,7 +17,7 @@ pnpm i -D unplugin-remix-router
 
 ```ts
 // vite.config.ts
-import remixRouter from 'unplugin-remixRouter/vite'
+import remixRouter from 'unplugin-remix-router/vite'
 
 export default defineConfig({
   plugins: [
