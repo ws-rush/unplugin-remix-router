@@ -8,16 +8,18 @@ import { buildRoutesMap } from './utils/build-route-maps'
 
 let server: ViteDevServer
 
-const routesCode = (imports: string | undefined, routesObject: string) => `
-${imports}
-      
-function moduleFactory(module) {
-  const { default: Component, clientLoader: loader, actionLoader: action, loader: _loader, action: _action, Component: _Component, ...rest } = module;
-  return { Component, loader, action, ...rest };
-}
+function routesCode(imports: string | undefined, routesObject: string) {
+  return `
+    ${imports}
+          
+    function moduleFactory(module) {
+      const { default: Component, clientLoader: loader, actionLoader: action, loader: _loader, action: _action, Component: _Component, ...rest } = module;
+      return { Component, loader, action, ...rest };
+    }
 
-export const routes = ${routesObject}
-`
+    export const routes = ${routesObject}
+  `
+}
 
 export function invalidateVirtualModule(server: ViteDevServer): void {
   const { moduleGraph, ws } = server
@@ -71,6 +73,7 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
         .replace(/SpreadEnd"/g, ')')
       // console.log(JSON.stringify(routesObject, null, 2))
 
+      // eslint-disable-next-line no-console
       console.log(`
         [Warn] You are using unplugin-remix-router v2. 
         you should export Component as default, loader as clientLoader and action as clientAction. 
