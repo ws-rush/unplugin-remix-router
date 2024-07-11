@@ -1,5 +1,5 @@
 import React from 'react'
 
-export function Component() {
+export default function Component() {
   return <h1>Dynamic Route</h1>
 }

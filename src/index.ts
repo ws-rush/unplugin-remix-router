@@ -55,12 +55,21 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
 
       const routesObject = JSON.stringify(routesMap)
         .replace(/"ImportStart/g, '() => import(')
-        .replace(/ImportEnd"/g, ')')
-        .replace(/"spread":"SpreadStart/g, '...')
-        .replace(/SpreadEnd"/g, '')
+        .replace(/ImportEnd"/g, ').then(moduleFactory)')
+        .replace(/"spread":"SpreadStart/g, '...moduleFactory(')
+        .replace(/SpreadEnd"/g, ')')
       // console.log(JSON.stringify(routesObject, null, 2))
 
-      const routesCode = `${imports}\nexport const routes = ${routesObject}`
+      const routesCode = `
+${imports}
+      
+function moduleFactory(module) {
+  const { default: Component, clientLoader: loader, actionLoader: action, loader: _loader, action: _action, Component: _Component, ...rest } = module;
+  return { Component, loader, action, ...rest };
+}
+
+export const routes = ${routesObject}
+`
       return routesCode
     }
   },

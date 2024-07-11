@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 
-export async function loader() {
+export async function clientLoader() {
   return 'Vite + React'
 }
 
-export function Component() {
+export default function Component() {
   const [count, setCount] = useState(0)
   const data = useLoaderData() as string
 

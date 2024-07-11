@@ -1,13 +1,13 @@
 import React from 'react'
 
-export async function loader() {
+export async function clientLoader() {
   return 'loader'
 }
 
-export async function action() {
+export async function clientAction() {
   return 'action'
 }
 
-export function Component() {
+export default function Component() {
   return <h1>Dynamic</h1>
 }

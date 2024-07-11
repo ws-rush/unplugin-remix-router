@@ -3,7 +3,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-export function Component() {
+export default function Component() {
   return (
     <>
       <h1>auth layout</h1>

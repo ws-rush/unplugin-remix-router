@@ -6,6 +6,9 @@
 
 >For more information, please refer to the React Router [documentation](https://reactrouter.com/en/main). Note that it follows the Remix file convention.
 
+>**Important**
+although react-router use names `loader`, `action`, `Component` these parts should exported from file as `clientLoader`, `clientAction`, `default`, see example below. use these name for future react-router releases.
+
 ## Install
 
 ```bash
@@ -117,12 +120,14 @@ export const caseSensitive = false
 
 export const id = 'main-page'
 
-export async function loader() {}
+// every `loader` should exported by name `clientLoader` from v2
+export async function clientLoader() {}
 
-export async function action() {}
+// every `action` should exported by name `clientAction` from v2
+export async function clientAction() {}
 
-// every component should exported without default with name `Component`
-export function Component() {
+// every component should exported as `default` no matter what is the name from v2
+export default function Component() {
   return <h1>Hello Remix Router!</h1>
 }
 
