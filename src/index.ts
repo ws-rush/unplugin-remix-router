@@ -48,23 +48,24 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
       const files = await listFiles(`${appDirectory}/routes`)
       let { routesMap, imports } = buildRoutesMap(files, appDirectory)
 
-      if (await isFileExist(`${appDirectory}/root.lazy.tsx`)) {
-        const absolutePath = `${appDirectory}/root.lazy.tsx`
-        routesMap = [{
-          path: '/',
-          lazy: `ImportStart'${absolutePath}'ImportEnd`,
-          children: routesMap,
-        }]
-      }
-      else if (await isFileExist(`${appDirectory}/root.tsx`)) {
-        const absolutePath = `${appDirectory}/root.tsx`
-        imports += `import * as root from '${absolutePath}'\n`
-        routesMap = [{
-          path: '/',
-          spread: `SpreadStartrootSpreadEnd`,
-          children: routesMap,
-        }]
-      }
+      /* remove root file support, `index.html` and `main.tsx` take its place */
+      // if (await isFileExist(`${appDirectory}/root.lazy.tsx`)) {
+      //   const absolutePath = `${appDirectory}/root.lazy.tsx`
+      //   routesMap = [{
+      //     path: '/',
+      //     lazy: `ImportStart'${absolutePath}'ImportEnd`,
+      //     children: routesMap,
+      //   }]
+      // }
+      // else if (await isFileExist(`${appDirectory}/root.tsx`)) {
+      //   const absolutePath = `${appDirectory}/root.tsx`
+      //   imports += `import * as root from '${absolutePath}'\n`
+      //   routesMap = [{
+      //     path: '/',
+      //     spread: `SpreadStartrootSpreadEnd`,
+      //     children: routesMap,
+      //   }]
+      // }
 
       const routesObject = JSON.stringify(routesMap)
         .replace(/"ImportStart/g, '() => import(')
@@ -75,9 +76,11 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
 
       // eslint-disable-next-line no-console
       console.log(`
-        [Warn] You are using unplugin-remix-router v2. 
-        you should export Component as default, loader as clientLoader and action as clientAction. 
+        [Warn] You are using unplugin-remix-router v2:
+
+        * you should export Component as default, loader as clientLoader and action as clientAction. 
         see example in https://github.com/ws-rush/unplugin-remix-router#readme
+        * \`root.tsx\` file not needed anymore, \`index.html\` and \`take its place\`
       `)
 
       return routesCode(imports, routesObject)

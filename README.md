@@ -2,12 +2,9 @@
 
 # unplugin-remix-router
 
-`unplugin-remix-router` generates a `react-router` file that depends on [remix v2](https://remix.run/docs/en/main/file-conventions/routes) file router convention, see [reactive](https://github.com/ws-rush/reactive) template
+`unplugin-remix-router` generates a `react-router` file that depends on [remix v2](https://remix.run/docs/en/main/file-conventions/routes) file router convention.
 
 >For more information, please refer to the React Router [documentation](https://reactrouter.com/en/main). Note that it follows the Remix file convention.
-
->**Important**
-although react-router use names `loader`, `action`, `Component` these parts should exported from file as `clientLoader`, `clientAction`, `default`, see example below. use these name for future react-router releases.
 
 ## Install
 
@@ -81,29 +78,13 @@ build({
 
 ## Usage
 
-### Project Structure
-
-we can make lazy routes by adding `.lazy` to route file.
-
-```sh
-- app/
-  - routes/
-    - _index.tsx
-    - about.lazy.tsx # lazy route
-    - countries.tsx # layout
-    - countries.yemen/route.tsx
-    - countries.wusab/route.lazy.tsx # also lazy route
-  - root.tsx # layout, every layout should use <Outlet >
-  - main.tsx # init route, see #Init
-```
-
 ### Init
 
 ```js
 // main.tsx
 import { routes } from 'virtual:routes'
 
-const router = createBrowserRouter(routes)
+export const router = createBrowserRouter(routes)
 createRoot(document.getElementById('app')!).render(
   <StrictMode>
     <RouterProvider router={router} />
@@ -111,9 +92,26 @@ createRoot(document.getElementById('app')!).render(
 )
 ```
 
+### Project Structure
+
+for deep understanding how filebased routing work, see examples in remix v2 [file router convention](https://remix.run/docs/en/main/file-conventions/routes)
+
+```sh
+- app/
+  - routes/
+    - _index.tsx
+    - about.tsx
+    - countries.tsx # layout
+    - countries.yemen/route.tsx
+    - countries.wusab/route.tsx
+  - main.tsx # `index.html` and `main.jsx` are the project starter point
+```
+
 ### Route Content
 
-every route can export one of following, see [React Router](https://reactrouter.com/en/main) for more:
+every route can export one of following, see [React Router](https://reactrouter.com/en/main) for more.
+
+use example in `playground/` as starter kit, or [reactive](https://github.com/ws-rush/reactive) template.
 
 ```js
 export const caseSensitive = false
@@ -154,4 +152,23 @@ add following to `vite-env.d.ts`
 declare module 'virtual:routes' {
   export const routes: any // Adjust the type accordingly based on your routes structure
 }
+```
+
+## Feauters
+
+### Lazy routes
+
+By default, Vite and other JavaScript bundlers package all project files into a single file. While this is often beneficial, it can result in slower initial load times for the project. To address this, you can implement lazy loading for routes, allowing the bundler to split the code for each route into separate files. This approach can improve the performance of the initial load.
+
+To implement this, simply add .lazy to route names (note: this applies only to routes, not components). Consequently, the project structure will look like this:
+
+```sh
+- app/
+  - routes/
+    - _index.tsx
+    - about.lazy.tsx # lazy route, will not included in main project file
+    - countries.tsx
+    - countries.yemen/route.tsx
+    - countries.wusab/route.lazy.tsx # also lazy route, will not included in main project file
+  - main.tsx
 ```
