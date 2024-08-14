@@ -172,3 +172,20 @@ To implement this, simply add .lazy to route names (note: this applies only to r
     - countries.wusab/route.lazy.tsx # also lazy route, will not included in main project file
   - main.tsx
 ```
+
+### Access router methods globally
+
+Most React Router commands are accessed through hooks, such as `const navigate = useNavigate()`. However, there are times when you need to access these functions within state manager actions. By defining a global router in main.jsx, you can access many of these functions from anywhere in your application. Here’s how you can do it:
+
+```js
+// main.jsx
+import { createBrowserRouter } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+
+export const router = createBrowser(/* ... */)
+createRoot(/* ... */)
+
+// Now you can import `router` from any file and use its methods
+// For example, to navigate programmatically:
+router.navigate('/login')
+```
