@@ -111,7 +111,7 @@ for deep understanding how filebased routing work, see examples in remix v2 [fil
 
 every route can export one of following, see [React Router](https://reactrouter.com/en/main) for more.
 
-use example in `playground/` as starter kit, or [reactive](https://github.com/ws-rush/reactive) template.
+use example in `playground/` as starter kit, or [reactive](https://github.com/ws-rush/reactive) template. also there is a version of official [react-router-tutorial](https://github.com/ws-rush/react-router-tutorial) with unplugin-remix-router
 
 ```js
 export const caseSensitive = false
