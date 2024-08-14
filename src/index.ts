@@ -2,7 +2,7 @@ import type { UnpluginFactory } from 'unplugin'
 import { createUnplugin } from 'unplugin'
 import type { ViteDevServer } from 'vite'
 import type { Options } from './types'
-import { isFileExist } from './utils/is-file-exist'
+// import { isFileExist } from './utils/is-file-exist'
 import { listFiles } from './utils/list-files'
 import { buildRoutesMap } from './utils/build-route-maps'
 
@@ -46,7 +46,7 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
 
     if (id === 'virtual:routes') {
       const files = await listFiles(`${appDirectory}/routes`)
-      let { routesMap, imports } = buildRoutesMap(files, appDirectory)
+      const { routesMap, imports } = buildRoutesMap(files, appDirectory)
 
       /* remove root file support, `index.html` and `main.tsx` take its place */
       // if (await isFileExist(`${appDirectory}/root.lazy.tsx`)) {

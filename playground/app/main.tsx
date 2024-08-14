@@ -10,7 +10,7 @@ const router = createBrowserRouter(routes, {
     v7_partialHydration: true,
     v7_relativeSplatPath: true,
     v7_skipActionErrorRevalidation: true,
-  }  
+  },
 })
 createRoot(document.getElementById('app')!).render(
   <StrictMode>
