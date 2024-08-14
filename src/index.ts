@@ -13,7 +13,7 @@ function routesCode(imports: string | undefined, routesObject: string) {
     ${imports}
           
     function moduleFactory(module) {
-      const { default: Component, clientLoader: loader, actionLoader: action, loader: _loader, action: _action, Component: _Component, ...rest } = module;
+      const { default: Component, clientLoader: loader, clientAction: action, loader: _loader, action: _action, Component: _Component, ...rest } = module;
       return { Component, loader, action, ...rest };
     }
 
