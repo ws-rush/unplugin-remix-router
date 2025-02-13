@@ -2,7 +2,7 @@ import type { UnpluginFactory } from 'unplugin'
 import { createUnplugin } from 'unplugin'
 import type { ViteDevServer } from 'vite'
 import type { Options } from './types'
-// import { isFileExist } from './utils/is-file-exist'
+import { isFileExist } from './utils/is-file-exist'
 import { listFiles } from './utils/list-files'
 import { buildRoutesMap } from './utils/build-route-maps'
 
@@ -46,26 +46,26 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
 
     if (id === 'virtual:routes') {
       const files = await listFiles(`${appDirectory}/routes`)
-      const { routesMap, imports } = buildRoutesMap(files, appDirectory)
+      let { routesMap, imports } = buildRoutesMap(files, appDirectory)
 
-      /* remove root file support, `index.html` and `main.tsx` take its place */
-      // if (await isFileExist(`${appDirectory}/root.lazy.tsx`)) {
-      //   const absolutePath = `${appDirectory}/root.lazy.tsx`
-      //   routesMap = [{
-      //     path: '/',
-      //     lazy: `ImportStart'${absolutePath}'ImportEnd`,
-      //     children: routesMap,
-      //   }]
-      // }
-      // else if (await isFileExist(`${appDirectory}/root.tsx`)) {
-      //   const absolutePath = `${appDirectory}/root.tsx`
-      //   imports += `import * as root from '${absolutePath}'\n`
-      //   routesMap = [{
-      //     path: '/',
-      //     spread: `SpreadStartrootSpreadEnd`,
-      //     children: routesMap,
-      //   }]
-      // }
+      // if root file exist add it
+      if (await isFileExist(`${appDirectory}/root.lazy.tsx`)) {
+        const absolutePath = `${appDirectory}/root.lazy.tsx`
+        routesMap = [{
+          path: '/',
+          lazy: `ImportStart'${absolutePath}'ImportEnd`,
+          children: routesMap,
+        }]
+      }
+      else if (await isFileExist(`${appDirectory}/root.tsx`)) {
+        const absolutePath = `${appDirectory}/root.tsx`
+        imports += `import * as root from '${absolutePath}'\n`
+        routesMap = [{
+          path: '/',
+          spread: `SpreadStartrootSpreadEnd`,
+          children: routesMap,
+        }]
+      }
 
       const routesObject = JSON.stringify(routesMap)
         .replace(/"ImportStart/g, '() => import(')
