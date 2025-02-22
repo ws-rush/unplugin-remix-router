@@ -1,6 +1,6 @@
 import type { Route } from '../types'
 
-export function buildRoutesMap(strings: string[], appDirectory: string, level = 0) {
+export function buildRoutesMap(strings: string[], appDirectory: string, lazyMode: 'always' | 'suffix' = 'suffix', level = 0) {
   const result: Route[] = []
   let intenalImports = ''
 
@@ -41,19 +41,26 @@ export function buildRoutesMap(strings: string[], appDirectory: string, level = 
       || str.endsWith(`${segment}/route.lazy.tsx`),
     )
 
-    if (lazyPage) {
+    // Handle lazy loading based on lazyMode
+    if (lazyMode === 'always' && page) {
+      // In 'always' mode, make all pages lazy regardless of .lazy suffix
+      const absolutePath = `${appDirectory}/routes/${page}`
+      newNode.lazy = `ImportStart'${absolutePath}'ImportEnd`
+    }
+    else if (lazyPage) {
+      // In 'suffix' mode or if the page is explicitly lazy
       const absolutePath = `${appDirectory}/routes/${lazyPage}`
       newNode.lazy = `ImportStart'${absolutePath}'ImportEnd`
     }
-
-    if (page) {
+    else if (page) {
+      // Regular eager loading for non-lazy pages in 'suffix' mode
       const random = Math.floor(Math.random() * 100000 + 1)
       const absolutePath = `${appDirectory}/routes/${page}`
       intenalImports += `import * as route${random} from '${absolutePath}'\n`
       newNode.spread = `SpreadStartroute${random}SpreadEnd`
     }
 
-    const { routesMap, imports } = buildRoutesMap(filteredStrings, appDirectory, level + 1)
+    const { routesMap, imports } = buildRoutesMap(filteredStrings, appDirectory, lazyMode, level + 1)
     if (routesMap.length > 0)
       newNode.children = routesMap
     if (imports)

@@ -1,5 +1,6 @@
 export interface Options {
   appDirectory: string
+  lazy?: 'always' | 'suffix'
 }
 
 export interface Route {

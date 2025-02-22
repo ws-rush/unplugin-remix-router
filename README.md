@@ -94,7 +94,7 @@ createRoot(document.getElementById('app')!).render(
 
 ### Project Structure
 
-for deep understanding how filebased routing work, see examples in remix v2 [file router convention](https://remix.run/docs/en/main/file-conventions/routes)
+for deep understanding how file based routing work, see examples in remix v2 [file router convention](https://remix.run/docs/en/main/file-conventions/routes)
 
 ```sh
 - app/
@@ -160,7 +160,9 @@ declare module 'virtual:routes' {
 
 By default, Vite and other JavaScript bundlers package all project files into a single file. While this is often beneficial, it can result in slower initial load times for the project. To address this, you can implement lazy loading for routes, allowing the bundler to split the code for each route into separate files. This approach can improve the performance of the initial load.
 
-To implement this, simply add .lazy to route names (note: this applies only to routes, not components). Consequently, the project structure will look like this:
+`unplugin-remix-router` do it out-of-box, for fine-grained control add option `remixRouter({ lazy: 'suffix' })`, then simply add .lazy to route names (note: this applies only to routes, not components). Consequently, the project structure will look like this:
+
+>f
 
 ```sh
 - app/

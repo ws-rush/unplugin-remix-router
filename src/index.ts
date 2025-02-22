@@ -43,10 +43,11 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
   },
   async load(id) {
     const appDirectory = options?.appDirectory ? options.appDirectory : './app'
+    const lazyMode = options?.lazy || 'always'
 
     if (id === 'virtual:routes') {
       const files = await listFiles(`${appDirectory}/routes`)
-      let { routesMap, imports } = buildRoutesMap(files, appDirectory)
+      let { routesMap, imports } = buildRoutesMap(files, appDirectory, lazyMode)
 
       // if root file exist add it
       if (await isFileExist(`${appDirectory}/root.lazy.tsx`)) {
