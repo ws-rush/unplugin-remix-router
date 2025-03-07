@@ -75,15 +75,6 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = options => 
         .replace(/SpreadEnd"/g, ')')
       // console.log(JSON.stringify(routesObject, null, 2))
 
-      // eslint-disable-next-line no-console
-      console.log(`
-        [Warn] You are using unplugin-remix-router v2:
-
-        * you should export Component as default, loader as clientLoader and action as clientAction. 
-        see example in https://github.com/ws-rush/unplugin-remix-router#readme
-        * \`root.tsx\` file not needed anymore, \`index.html\` and \`take its place\`
-      `)
-
       return routesCode(imports, routesObject)
     }
   },
