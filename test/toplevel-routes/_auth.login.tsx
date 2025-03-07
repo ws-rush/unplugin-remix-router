@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData } from 'react-router'
 
 export async function clientLoader() {
   // sleep 2 seconds then return data

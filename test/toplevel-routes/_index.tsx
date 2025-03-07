@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData } from 'react-router'
 
 export async function clientLoader() {
   return 'Vite + React'

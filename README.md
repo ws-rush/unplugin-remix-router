@@ -181,7 +181,7 @@ Most React Router commands are accessed through hooks, such as `const navigate =
 
 ```js
 // main.jsx
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router'
 import { createRoot } from 'react-dom/client'
 
 export const router = createBrowser(/* ... */)
