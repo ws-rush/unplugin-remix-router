@@ -3,10 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router'
 import { routes } from 'virtual:routes'
 
-const router = createBrowserRouter(routes, {
-  future: {
-  },
-})
+const router = createBrowserRouter(routes)
+
 createRoot(document.getElementById('app')!).render(
   <StrictMode>
     <RouterProvider router={router} />
