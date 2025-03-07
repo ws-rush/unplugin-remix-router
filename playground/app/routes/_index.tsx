@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLoaderData } from 'react-router'
+import { Link, useLoaderData } from 'react-router'
 
 export async function clientLoader() {
   return 'Vite + React'
@@ -33,6 +33,8 @@ export default function Component() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <Link to="/login">go /login</Link>
     </>
   )
 }

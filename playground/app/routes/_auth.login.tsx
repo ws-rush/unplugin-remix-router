@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLoaderData } from 'react-router'
+import { Link, useLoaderData } from 'react-router'
 
 export async function clientLoader() {
   // sleep 2 seconds then return data
@@ -14,6 +14,7 @@ export default function Component() {
     <>
       <h1>Notes</h1>
       {notes.map(note => <p key={note}>{note}</p>)}
+      <Link to="/">Back to main</Link>
     </>
   )
 }
