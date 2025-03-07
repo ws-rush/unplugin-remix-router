@@ -104,7 +104,7 @@ for deep understanding how file based routing work, see examples in remix v2 [fi
     - countries.tsx # layout
     - countries.yemen/route.tsx
     - countries.wusab/route.tsx
-  - main.tsx # `index.html` and `main.jsx` are the project starter point
+  - routes.tsx # `index.html` and `routes.jsx` are the project starter point
 ```
 
 ### Route Content
@@ -118,13 +118,16 @@ export const caseSensitive = false
 
 export const id = 'main-page'
 
-// every `loader` should exported by name `clientLoader` from v2
+// every `loader` should exported by name `clientLoader`
 export async function clientLoader() {}
 
-// every `action` should exported by name `clientAction` from v2
+// every `action` should exported by name `clientAction`
 export async function clientAction() {}
 
-// every component should exported as `default` no matter what is the name from v2
+// every `middleware` should exported by name `clientMiddleware`
+export const clientMiddleware = [/* put middlewares here */]
+
+// every component should exported as `default` no matter what is the name
 export default function Component() {
   return <h1>Hello Remix Router!</h1>
 }
@@ -162,16 +165,14 @@ By default, Vite and other JavaScript bundlers package all project files into a 
 
 `unplugin-remix-router` do it out-of-box, for fine-grained control add option `remixRouter({ lazy: 'suffix' })`, then simply add .lazy to route names (note: this applies only to routes, not components). Consequently, the project structure will look like this:
 
->f
-
 ```sh
 - app/
   - routes/
     - _index.tsx
-    - about.lazy.tsx # lazy route, will not included in main project file
+    - about.tsx
     - countries.tsx
     - countries.yemen/route.tsx
-    - countries.wusab/route.lazy.tsx # also lazy route, will not included in main project file
+    - countries.wusab/route.tsx
   - main.tsx
 ```
 
