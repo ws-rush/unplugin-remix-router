@@ -4,15 +4,15 @@
     "dev": "nodemon -w '../src/**/*.ts' -e .ts -x vite"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-router": "^7.3.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
-    "vite": "^5.0.4",
-    "vite-plugin-inspect": "^0.8.1"
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "vite": "^6.2.1",
+    "vite-plugin-inspect": "^11.0.0"
   }
 }

@@ -113,25 +113,25 @@
     }
   },
   "dependencies": {
-    "unplugin": "^1.10.1"
+    "unplugin": "^2.2.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.15.0",
-    "@nuxt/kit": "^3.11.2",
-    "@nuxt/schema": "^3.11.2",
-    "@types/node": "^20.12.7",
-    "bumpp": "^9.4.0",
-    "chalk": "^5.3.0",
-    "eslint": "^8.57.0",
-    "esno": "^4.7.0",
-    "fast-glob": "^3.3.2",
-    "nodemon": "^3.1.0",
-    "rimraf": "^5.0.5",
-    "rollup": "^4.14.3",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.9",
+    "@antfu/eslint-config": "^2.27.3",
+    "@nuxt/kit": "^3.15.4",
+    "@nuxt/schema": "^3.15.4",
+    "@types/node": "^20.17.23",
+    "bumpp": "^10.0.3",
+    "chalk": "^5.4.1",
+    "eslint": "^8.57.1",
+    "esno": "^4.8.0",
+    "fast-glob": "^3.3.3",
+    "nodemon": "^3.1.9",
+    "rimraf": "^5.0.10",
+    "rollup": "^4.34.9",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.1",
     "vitest": "^0.34.6",
-    "webpack": "^5.91.0"
+    "webpack": "^5.98.0"
   }
 }
